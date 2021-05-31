@@ -1,0 +1,16 @@
+C:\Nelson\Projetos\VS_CSharp\csVazEdit\bin\Debug\net5.0\csVazEdit.exe
+C:\Nelson\Projetos\VS_CSharp\csVazEdit\bin\Debug\net5.0\csVazEdit.deps.json
+C:\Nelson\Projetos\VS_CSharp\csVazEdit\bin\Debug\net5.0\csVazEdit.runtimeconfig.json
+C:\Nelson\Projetos\VS_CSharp\csVazEdit\bin\Debug\net5.0\csVazEdit.runtimeconfig.dev.json
+C:\Nelson\Projetos\VS_CSharp\csVazEdit\bin\Debug\net5.0\csVazEdit.dll
+C:\Nelson\Projetos\VS_CSharp\csVazEdit\bin\Debug\net5.0\ref\csVazEdit.dll
+C:\Nelson\Projetos\VS_CSharp\csVazEdit\bin\Debug\net5.0\csVazEdit.pdb
+C:\Nelson\Projetos\VS_CSharp\csVazEdit\obj\Debug\net5.0\csVazEdit.csproj.AssemblyReference.cache
+C:\Nelson\Projetos\VS_CSharp\csVazEdit\obj\Debug\net5.0\csVazEdit.GeneratedMSBuildEditorConfig.editorconfig
+C:\Nelson\Projetos\VS_CSharp\csVazEdit\obj\Debug\net5.0\csVazEdit.AssemblyInfoInputs.cache
+C:\Nelson\Projetos\VS_CSharp\csVazEdit\obj\Debug\net5.0\csVazEdit.AssemblyInfo.cs
+C:\Nelson\Projetos\VS_CSharp\csVazEdit\obj\Debug\net5.0\csVazEdit.csproj.CoreCompileInputs.cache
+C:\Nelson\Projetos\VS_CSharp\csVazEdit\obj\Debug\net5.0\csVazEdit.dll
+C:\Nelson\Projetos\VS_CSharp\csVazEdit\obj\Debug\net5.0\ref\csVazEdit.dll
+C:\Nelson\Projetos\VS_CSharp\csVazEdit\obj\Debug\net5.0\csVazEdit.pdb
+C:\Nelson\Projetos\VS_CSharp\csVazEdit\obj\Debug\net5.0\csVazEdit.genruntimeconfig.cache
