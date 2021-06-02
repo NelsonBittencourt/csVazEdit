@@ -19,7 +19,7 @@ namespace csVazEdit
         /// Onde <nome do projeto> é o nome do arquivo sem a extensão 'csproj'. No meu caso,
         /// <nome do projeto> é igual a 'csVazEdit'.
         ///
-        /// <sumary>
+        /// </sumary>
         /// Lê valores de vazão de uma planilha Excel (xlsx) para atualizar um arquivo binário de vazões.
         ///
         /// A plalinha deverá conter:
