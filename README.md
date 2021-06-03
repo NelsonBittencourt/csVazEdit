@@ -4,7 +4,7 @@ Código em C# para ler e escrever arquivos binários de vazão utilizados nos mo
 
 <img src="pictures/csVazEdit_ScreenShot.png" width="700"> 
 <img src="pictures/csVazEdit_WinConsole.png" width="700"> 
-<img src="pictures/csVazEdit_txt.png.png" width="700"> 
+<img src="pictures/csVazEdit_txt.png" width="700"> 
 
 Modelo de arquivo Excel que o pyVazEdit lê para atualizar um arquivo de vazões binários:
 
