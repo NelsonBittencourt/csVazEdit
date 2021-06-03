@@ -8,8 +8,7 @@ namespace csVazEdit
     /* TODO:
         1) Refinar o código da rotina 'main' para tratamento da linha de comando;
         2) Criar nova classe para distribuir os métodos que atuam sobre o histórico de vazões e arquivos;
-        3) Adicionar mais comentários;
-        4) Compilar para windows e linux e testar.
+        3) Adicionar mais comentários.
     */
     class Program
     {
@@ -43,7 +42,9 @@ namespace csVazEdit
             int numPostos = 320;
 
             // Mensagem com a sintaxe da linha de comando.
-            string sintaxe = @"csVazEdit <operação> <arquivo 1> <arquivo 2> [ano incial] [número de postos] [intervalo Excel]
+            string sintaxe = @"
+            csVazEdit <operação> <arquivo 1> <arquivo 2> [ano incial] [número de postos] [intervalo Excel]
+            
             <operação> = -b
             Converte o arquivo de entrada <arquivo 1> de binário para o arquivo de saída <arquivo 2> no formato
             texto VazEdit. Caso o ano inicial seja diferente de 1931 ou o número de postos seja diferente de 320, 
@@ -181,7 +182,7 @@ namespace csVazEdit
 
             // Exemplo 04 - Atualiza o histórico com vazões obtidas do Excel e salva no formato VazEdit.
             // Lê dados de um intervalo do Excel em um dicionário.
-            Dictionary<int, List<List<int>>> DadosExcel = ExcelOps.leVazoesExcel("tests/csVazEdit_Excel.xlsx",3,2,13,14);
+            Dictionary<int, List<List<int>>> DadosExcel = excelOps.leVazoesExcel("tests/csVazEdit_Excel.xlsx",3,2,13,14);
 
             // Usa a rotina 'mudaVazao' para alterar o histórico com os dados do Excel.
             foreach (var posto in DadosExcel.Keys)
@@ -196,8 +197,19 @@ namespace csVazEdit
 
 
         /// <sumary>
+        ///
         /// Rotina para converter um arquivo binário de vazões para um arquivo texto no formato do aplicativo
-        /// VazEdit.
+        /// VazEdit do ONS.
+        ///
+        /// Argumentos:
+        ///     arquivoBin  - arquivo binário no formato ONS a ter seus dados convertidos;
+        ///     arquivoTxt  - nome do arquivo de saída no formato texto;
+        ///     anoInicial  - (opcional) ano inicial do histórico. Padrão = 1931;
+        ///     numPostos   - (opcional) número de postos do histórico. Padráo = 320.
+        ///
+        /// Retorno:
+        ///     'True' se não houver erro e 'False' se ocorrer(em) erro(s).
+        ///
         /// </sumary>
         public static bool binToVazEdit(string arquivoBin, string arquivoTxt, int anoInicial=1931, int numPostos=320)
         {
@@ -212,16 +224,23 @@ namespace csVazEdit
                 ret = true;
             }
             catch
-            {
-                ret = true;
-            }
+            {}
             return ret;
         }
 
 
         /// <sumary>
+        ///
         /// Rotina para converter um arquivo texto no formato do aplicativo VazEdit em formato binário.
-        /// </sumary>
+        ///
+        /// Argumentos:
+        ///     arquivoTxt  - nome do arquivo de entrada no formato texto;
+        ///     arquivoBin  - nome do arquivo de saída no formato binário.        
+        ///
+        /// Retorno:
+        ///     'True' se não houver erro e 'False' se ocorrer(em) erro(s).
+        ///
+        /// </sumary>       
         public static bool VazEditToBin(string arquivoTxt, string arquivoBin)
         {
             bool ret = false;
@@ -234,17 +253,25 @@ namespace csVazEdit
                 salvaVazoes(vazoesHistorico, arquivoBin, "binario");                
                 ret = true;
             }
-            catch
-            {
-                ret = true;
-            }
+            catch 
+            {}
             return ret;
         }
 
-
         /// <sumary>
+        ///
         /// Atualiza um arquivo binário a partir de um arquivo Excel.
-        /// </sumary>
+        ///
+        /// Argumentos:
+        ///     arquivoExcel - nome do arquivo de entrada no Excel;
+        ///     arquivoBin   - nome do arquivo de saída no formato binário; 
+        ///     li, c1       - linha e coluna da primeira célula (canto superior esquerdo) da tabela de dados a serem lidos;
+        ///     l2, c2       - linha e coluna da última célula (canto inferior direito) da tabela de dados a serem lidos.       
+        ///
+        /// Retorno:
+        ///     'True' se não houver erro e 'False' se ocorrer(em) erro(s).
+        ///
+        /// </sumary>           
         public static bool atualizaBinExcel(string arquivoExcel,string arquivoBin, int l1, int c1, int l2, int c2)
         {
             bool ret = false;
@@ -254,9 +281,7 @@ namespace csVazEdit
                 historicoVazoes vazoesHistorico = leVazoesBin(arquivoBin);
 
                 // Lê arquivo Excel com vazões a atualizar.                
-                // Dictionary<int, List<List<int>>> DadosExcel = leVazoesExcel(arquivoExcel,l1,c1,l2,c2);
-
-                Dictionary<int, List<List<int>>> DadosExcel = ExcelOps.leVazoesExcel(arquivoExcel,l1,c1,l2,c2);
+                Dictionary<int, List<List<int>>> DadosExcel = excelOps.leVazoesExcel(arquivoExcel,l1,c1,l2,c2);
 
                 // Usa a rotina 'mudaVazao' para alterar o histórico com os dados do Excel.
                 foreach (var posto in DadosExcel.Keys)
@@ -272,18 +297,20 @@ namespace csVazEdit
                 ret = true;
             }
             catch
-            {
-                ret = true;
-            }
+            {}
             return ret;
         }
 
         /// <sumary>
+        ///
         /// Método para ler as vazões de um arquivo txt (no formato VazEdit) para um objeto 'historicoVazoes'.
+        ///
         /// Argumentos:
         ///     nomeArquivo - caminho completo do arquivo de vazões binários no formato ONS.        
+        ///
         /// Retorno:
         ///     Objeto tipo 'historicoVazoes' com os dados lidos do arquivo.
+        ///
         /// </sumary>    
         public static historicoVazoes leVazoesTxt(string nomeArquivo)
         {
@@ -293,36 +320,49 @@ namespace csVazEdit
             // Lê todas as linhas do arquivo.
             string [] data = File.ReadAllLines(nomeArquivo);
             
-            string sPosto = "";            
-            int iPosto = 0;
-            int numPostos = 0;
-            int tamLista = 0;
+            string sPosto = "";     // string com número do posto
+            int iPosto = 0;         // número do posto no formato inteiro
+            int numPostos = 0;      // contador de postos
+            int tamLista = 0;       // número total de vazões para da posto
        
             // Aloca o ano incial e o ano final.
             localHist.anoInicial = Convert.ToInt32(data[0].Substring(4,4));
             localHist.anoFinal = Convert.ToInt32(data[data.Length-1].Substring(4,4));
+            
+            // Calcula o número total de vazões por posto.
             tamLista = (localHist.anoFinal - localHist.anoInicial + 1) * 12;
 
             // Loop para as linhas do arquivo.
             foreach(string s in data)
             {
-                string posto = s.Substring(0,3);                
-                int iAno = Convert.ToInt32(s.Substring(4,4));
+                string posto = s.Substring(0,3);                // obtem uma string com número do posto      
+                int iAno = Convert.ToInt32(s.Substring(4,4));   // obtem o ano 
 
-                if (posto!=sPosto) { sPosto = posto; iPosto = Convert.ToInt32(posto); numPostos++; }
+                // Caso ocorra variação na string do posto, converte para inteiro e incrementa contador de postos.
+                if (posto!=sPosto) 
+                { 
+                    sPosto = posto;
+                    iPosto = Convert.ToInt32(posto);
+                    numPostos++; 
+                }
 
+                // Cria lista para armazenar as vazões de um posto.
                 List<int> listaValores = new List<int>();
 
+                // Adiciona os doze valores do ano 'iAno" na lista de valores.
                 for (int m = 0; m <12; m++)
                 {
                     listaValores.Add(Convert.ToInt32(s.Substring(6*m + 8, 6)));
                 } 
 
-                if (!localHist.valores.ContainsKey(iPosto)) { localHist.valores[iPosto]=new List<int>(); }
+                // Caso ainda o posto ainda não tenha sido inserido no dicionário, cria lista vazia.
+                if (!localHist.valores.ContainsKey(iPosto)) localHist.valores[iPosto]=new List<int>(); 
+                
+                // Adiciona lista ao dicinário.
                 localHist.valores[iPosto].AddRange(listaValores);               
             }
 
-            // Completa os postos zerados.
+            // Completa os demais postos com zero.
             int maxPostos = 320;
             if (numPostos > 320) maxPostos = 600; 
             
@@ -335,14 +375,17 @@ namespace csVazEdit
         }
 
         /// <sumary>
+        ///
         /// Método para ler as vazões de um arquivo binário para um objeto 'historicoVazoes'.
         /// Argumentos:
         ///     nomeArquivo - caminho completo do arquivo de vazões binários no formato ONS;
         ///     anoInicial  - (Opcional) ano inicial do histórico de vazões. Valor padrão 1931;
         ///     numPostos   - (Opcional) número de postos do arquivo de vazões. 
         ///         O ONS utiliza 320 postos para o modo "operação" e 600 postos para o modo "planejamento".
+        ///
         /// Retorno:
         ///     Objeto tipo 'historicoVazoes' com os dados lidos do arquivo.
+        ///
         /// </sumary>        
         public static historicoVazoes leVazoesBin(string nomeArquivo, int anoInicial=1931, int numPostos = 320)
         {
@@ -359,7 +402,7 @@ namespace csVazEdit
             // Aloca os bytes lidos no objeto.
             for(int r = 0; r < (data.Length-numPostos); r=r+4*(numPostos))
             {
-                for(int p=0;p<numPostos;p++)
+                for(int p = 0; p < numPostos;p++)
                 {                       
                     histLocal.valores[p+1].Add(BitConverter.ToInt32(new ArraySegment<byte>(data,(p*4)+r, 4)));
                 }
@@ -371,17 +414,21 @@ namespace csVazEdit
         }    
                 
         /// <sumary>
+        ///
         /// Salva um histórico de vazões para um arquivo de tipo especificado.
         /// Os tipo de arquivo permitidos são:
         ///     "binário"   - arquivo binário no formato ONS;
         ///     "vazEdit"   - arquivo texto no formato do aplicativo 'VazEdit' do ONS;
         ///     "csv"       - arquivo texto no formato separado por vírgulas.
+        ///
         /// Argumentos:
         ///     vazoesHist  - objeto do tipo 'historicoVazoes' com dados a serem salvos;
         ///     nomeArquivo - caminho completo do arquivo de vazões a ser salvo; 
         ///     tipoArquivo - (Opcional) tipo de arquivo (ver acima).
+        ///
         /// Retorno:
         ///     Nenhum.       
+        ///
         /// </sumary>
         public static void salvaVazoes(historicoVazoes vazoesHist, string nomeArquivo, string tipoArquivo="binario")
         {
