@@ -2,8 +2,10 @@
 Código em C# para ler e escrever arquivos binários de vazão utilizados nos modelos Newave, Decomp, Gevazp e Dessem.
 
 
-<img src="pictures/csVazEdit_ScreenShot.png" width="700"> 
+<img src="pictures/csVazEdit_ScreenShot.png" width="700">
+
 <img src="pictures/csVazEdit_WinConsole.png" width="700"> 
+
 <img src="pictures/csVazEdit_txt.png" width="700"> 
 
 Modelo de arquivo Excel que o pyVazEdit lê para atualizar um arquivo de vazões binários:
@@ -51,7 +53,9 @@ mudaVazao(meuHistorico,1,2,1931,999);
 
 #### B.1) Convertendo um arquivo binário para texto:
 ```C#
+
 csVazEdit -b <caminho do arquivo binário de entrada> <caminho do arquivo texto de saída> [ano inicial] [número de postos] 
+
 ````
 ano incial - argumento opcional para especificar o primeiro ano do histórico do arquivo binário. Utilize este parâmetro caso o arquivo binário tenha um ano inicial diferente de 1931;
 
@@ -59,12 +63,14 @@ número de postos - argumento opcional para especificar o número de postos do a
 
 #### B.2) Convertendo um arquivo texto para binario:
 ```C#
+
 csVazEdit -t <caminho do arquivo texto de entrada> <caminho do arquivo binário de saída>
 
 ```
 
 #### B.3) Atualizando um arquivo binário com dados lidos de um arquivo Excel (requer o pacote EEPlus):
 ```C#
+
 csVazEdit -e <caminho do arquivo Excel de entrada> <caminhgo do arquivo binário de saída> <intervalo Excel>
 
 ```
@@ -74,24 +80,22 @@ csVazEdit -e <caminho do arquivo Excel de entrada> <caminhgo do arquivo binário
  
 Exemplo:
 ```C#
-csVazEdit -e excel.xlsx vazoes.bin 3,2,13,14
+
+ csVazEdit -e excel.xlsx vazoes.bin 3,2,13,14
 
 ```
-  
 
 ## Dependências:
 
-EEPlus
+[EEPlus](https://www.nuget.org/packages/EPPlus)
 
 ## Licença:
 
 [Ver licença](LICENSE)
 
-
 ## Projeto relacionado:
 
 [NVazEdit C#](http://nrbenergia.somee.com/SoftDev/NVazEdit/NVazEdit)
-
 
 ## Sobre o autor:
 
