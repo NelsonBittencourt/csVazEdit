@@ -1,0 +1,16 @@
+********* Instruções instalar pacotes no VS Code *********
+
+Para instalar pacotes no VSCode, use a seguinte sintaxe no terminal:
+
+    dotnet add <nome do projeto> package <nome do pacote> --version <versão do pacote>
+
+Para utilizar a funcionalidade de leitura de dados do Excel, escolhi o pacote EEPlus. Para instalá-lo,
+use o seguinte comando:
+
+    dotnet add csVazEdit.csproj package EPPlus --version 5.6.4
+
+Antes de usar o csVazEdit, leia as condições de licença do EPPlus em:
+https://www.epplussoftware.com/en/LicenseOverview
+
+Nelson Rossi Bittencourt
+02/06/2021

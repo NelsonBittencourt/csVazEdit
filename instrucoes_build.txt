@@ -1,0 +1,21 @@
+********* Instruções para compilar o 'csVazEdit' no VS Code *********
+
+Para compilar o csVazEdit, use o seguinte comando em um terminal do VS Code:
+
+    Para Windows 10-64 bits:
+    ------------------------
+
+    dotnet publish csVazEdit.csproj --configuration Release -r win10-x64 --self-contained false
+	
+
+    Para Linux-64 bits:
+    -------------------
+
+    dotnet publish csVazEdit.csproj --configuration Release -r linux-x64 --self-contained false
+
+
+Caso o sistema operacional seja diferente, consulte : 
+https://docs.microsoft.com/pt-br/dotnet/core/rid-catalog
+
+Nelson Rossi Bittencourt
+02/06/2021
