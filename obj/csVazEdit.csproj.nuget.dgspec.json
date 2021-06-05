@@ -5,7 +5,7 @@
   },
   "projects": {
     "C:\\Nelson\\Projetos\\VS_CSharp\\csVazEdit\\csVazEdit.csproj": {
-      "version": "1.0.0",
+      "version": "0.2.0",
       "restore": {
         "projectUniqueName": "C:\\Nelson\\Projetos\\VS_CSharp\\csVazEdit\\csVazEdit.csproj",
         "projectName": "csVazEdit",
@@ -57,7 +57,7 @@
           "warn": true,
           "downloadDependencies": [
             {
-              "name": "Microsoft.NETCore.App.Host.linux-x64",
+              "name": "Microsoft.NETCore.App.Host.osx-x64",
               "version": "[5.0.6, 5.0.6]"
             }
           ],
@@ -70,7 +70,7 @@
         }
       },
       "runtimes": {
-        "linux-x64": {
+        "osx.11.0-x64": {
           "#import": []
         }
       }
