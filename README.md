@@ -22,14 +22,14 @@ Para utilizar o csVazEdit, existem duas formas básicas:
 #### A.1) Importando os dados de vazão de um arquivo binário:
 ```C#
 
-var meuHistorico = leVazoesBin(<caminho completo do arquivo binário>); 
+var meuHistorico = fileOps.leVazoesBin(<caminho completo do arquivo binário>); 
 
 ```
 
 #### A.2) Importando os dados de vazão de um arquivo texto (formato VazEdit):
 ```C#
 
-var meuHistorico = leVazoesTxt(<caminho completo do arquivo binário>);
+var meuHistorico = fileOps.leVazoesTxt(<caminho completo do arquivo binário>);
 
 ```
 
@@ -43,9 +43,9 @@ mudaVazao(meuHistorico,1,2,1931,999);
 #### A.4) Salvando um histórico de vazões lidos em um formato específico:
 ```C#
 
- salvaVazoes(meuHistorico, <caminho completo para o arquivo de saída>, "binario");     // formato binário
- salvaVazoes(meuHistorico, <caminho completo para o arquivo de saída>, "csv");         // formato texto csv
- salvaVazoes(meuHistorico, <caminho completo para o arquivo de saída>, "vazEdit");     // formato texto VazEdit     
+ fileOps.salvaVazoes(meuHistorico, <caminho completo para o arquivo de saída>, "binario");     // formato binário
+ fileOps.salvaVazoes(meuHistorico, <caminho completo para o arquivo de saída>, "csv");         // formato texto csv
+ fileOps.salvaVazoes(meuHistorico, <caminho completo para o arquivo de saída>, "vazEdit");     // formato texto VazEdit     
 
 ```
 ### A.5) Importanto dados de um arquivo binário de MLTs:
