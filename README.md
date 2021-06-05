@@ -1,4 +1,4 @@
-# csVazEdit versão 0.001
+# csVazEdit versão 0.002
 Código em C# para ler e escrever arquivos binários de vazão utilizados nos modelos Newave, Decomp, Gevazp e Dessem.
 
 
@@ -48,10 +48,43 @@ mudaVazao(meuHistorico,1,2,1931,999);
  salvaVazoes(meuHistorico, <caminho completo para o arquivo de saída>, "vazEdit");     // formato texto VazEdit     
 
 ```
+### A.5) Importanto dados de um arquivo binário de MLTs:
+```C#
+
+var minhasMLTs = fileOps.leMLTs("tests/MLT.dat", numPostos:320);
+
+```
+
+### A.6) Salvando dados de MLTs para os formatos binário e/ou 'VazEdit':
+```C#
+
+fileOps.salvaMLTs("tests/Novas_MLTs.dat", minhasMLTs, "binario");  // formato binário
+fileOps.salvaMLTs("tests/Novas_MLTs.txt", minhasMLTs, "vazEdit");  // formato texto 'VazEdit'
+
+```
+
+### A.7) Importanto dados de um arquivo binário de postos:
+```C#
+
+var meusPostos = fileOps.lePostos("tests/POSTOS.DAT");
+
+```
+
+### A.8) Salvando dados de postos para os formatos binário e/ou 'VazEdit':
+```C#
+
+fileOps.salvaPostos("tests/Novos_Postos.dat", meusPostos, "binario");  // formato binário
+fileOps.salvaPostos("tests/Novos_Postos.txt", meusPostos, "vazEdit");  // formato texto 'VazEdit'            
+
+```
+
+
 
 ### B) Utilizando a linha de comando para invocar uma das funções já criadas:
 
-#### B.1) Convertendo um arquivo binário para texto:
+### B.1) Dados de vazões:
+
+##### B.1.1) Convertendo um arquivo binário de vazões para texto:
 ```C#
 
 csVazEdit -b <caminho do arquivo binário de entrada> <caminho do arquivo texto de saída> [ano inicial] [número de postos] 
@@ -61,14 +94,14 @@ ano incial - argumento opcional para especificar o primeiro ano do histórico do
 
 número de postos - argumento opcional para especificar o número de postos do arquivo binário a ser convertido. O ONS utiliza 320 postos para o modo "operação" do sistema e 600 postos para o modo "planejamento".
 
-#### B.2) Convertendo um arquivo texto para binario:
+##### B.1.2) Convertendo um arquivo texto de vazões para binario:
 ```C#
 
 csVazEdit -t <caminho do arquivo texto de entrada> <caminho do arquivo binário de saída>
 
 ```
 
-#### B.3) Atualizando um arquivo binário com dados lidos de um arquivo Excel (requer o pacote EEPlus):
+##### B.1.3) Atualizando um arquivo binário de vazões com dados lidos de um arquivo Excel (requer o pacote EEPlus):
 ```C#
 
 csVazEdit -e <caminho do arquivo Excel de entrada> <caminhgo do arquivo binário de saída> <intervalo Excel>
@@ -84,6 +117,14 @@ Exemplo:
  csVazEdit -e excel.xlsx vazoes.bin 3,2,13,14
 
 ```
+
+### B.2) Dados de MLTs:
+
+Em elaboração.
+
+### B.3) Dados de postos:
+
+Em elaboração.
 
 ## Dependências:
 
