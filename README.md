@@ -1,4 +1,4 @@
-# csVazEdit versão 0.002
+# csVazEdit versão 0.003
 Código em C# para ler e escrever arquivos binários de vazão utilizados nos modelos Newave, Decomp, Gevazp e Dessem.
 
 
@@ -171,8 +171,6 @@ csVazEdit postos -paraTexto <arquivo binário de postos de entrada> <arquivo tex
 csVazEdit postos -paraBinario <arquivo texto de postos de entrada> <arquivo binário de postos de saída> -np <número de postos>
 
 ```
-
-
  
 
 ## Dependências:
