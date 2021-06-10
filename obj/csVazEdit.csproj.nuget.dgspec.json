@@ -5,7 +5,7 @@
   },
   "projects": {
     "C:\\Nelson\\Projetos\\VS_CSharp\\csVazEdit\\csVazEdit.csproj": {
-      "version": "0.2.0",
+      "version": "0.3.0",
       "restore": {
         "projectUniqueName": "C:\\Nelson\\Projetos\\VS_CSharp\\csVazEdit\\csVazEdit.csproj",
         "projectName": "csVazEdit",
@@ -55,22 +55,16 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.NETCore.App.Host.osx-x64",
-              "version": "[5.0.6, 5.0.6]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
         }
       },
       "runtimes": {
-        "osx.11.0-x64": {
+        "win10-x86": {
           "#import": []
         }
       }
