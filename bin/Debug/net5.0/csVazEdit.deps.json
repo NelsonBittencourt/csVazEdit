@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v5.0": {
-      "csVazEdit/0.001": {
+      "csVazEdit/0.003": {
         "dependencies": {
           "EPPlus": "5.6.4"
         },
@@ -726,7 +726,7 @@
     }
   },
   "libraries": {
-    "csVazEdit/0.001": {
+    "csVazEdit/0.003": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
