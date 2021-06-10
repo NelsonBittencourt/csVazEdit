@@ -7,8 +7,7 @@ using System.Text;
 namespace csVazEdit
 {
     class fileOps
-    {
- 
+    { 
         // ***************************************************************
         // ********** Métodos para manipular arquivos de MLT *************
         // ***************************************************************
@@ -25,7 +24,7 @@ namespace csVazEdit
         ///     Dicionário com número do posto e lista com 12 valores das MLTs mensais.
         ///
         /// </sumary>
-        public static Dictionary<int, List<int>> leMLTs(string nomeArquivo, int numPostos=320)
+        public static Dictionary<int, List<int>> loadBinMLTs(string nomeArquivo, int numPostos=320)
         {
             // Declara e inicializa variável de saída.
             Dictionary<int,List<int>> tmpDict = new Dictionary<int, List<int>>();
@@ -49,6 +48,50 @@ namespace csVazEdit
 
         /// <sumary>
         ///
+        /// Lê arquivo texto de MLTs no formato VazEdit.
+        ///
+        /// Argumento:
+        ///     nomeArquivo - caminho completo para o arquivo binário de postos.        
+        ///
+        /// Retorno:
+        ///     Dicionário com número do posto e lista com 12 valores das MLTs mensais.
+        ///
+        /// </sumary>
+        public static Dictionary<int, List<int>> loadTxtMLTs(string nomeArquivo)
+        {
+            // Declara e inicializa variável de saída.
+            Dictionary<int,List<int>> tmpDict = new Dictionary<int, List<int>>();
+                        
+            // Lê os dados do arquivo.
+            string [] data = File.ReadAllLines(nomeArquivo);
+
+            // Número de postos.
+            int numPostos = data.Length;
+
+            // Loop para o número de registros do arquivo.
+            for(int s = 0; s < numPostos; s++)
+            {                      
+                // Seleciona cada linha do arquivo, pulando o número do posto.
+                string ds = data[s].Substring(4);
+
+                // Ajuste para obter o número do posto.                
+                int posto = s + 1;
+                
+                // Aloca lista vazia na variável de saída.
+                tmpDict[posto] = new List<int>();  
+
+                //  Loop para os meses.
+                for (int m = 0; m < 12; m++)
+                {   
+                    // Converte e aloca o valor lido na variável de saída.                                        
+                    tmpDict[posto].Add(Convert.ToInt32(ds.Substring(6*m,6)));
+                }
+            }
+            return tmpDict;
+        }
+
+        /// <sumary>
+        ///
         /// Salva arquivo com dados de MLTs.
         ///
         /// Os tipos de arquivos permitidos são:
@@ -64,7 +107,7 @@ namespace csVazEdit
         ///     Nenhum.
         ///
         /// </sumary>
-        public static void salvaMLTs(string nomeArquivo, Dictionary<int, List<int>> dictMLTs, string tipoArquivo)
+        public static void saveMLTs(string nomeArquivo, Dictionary<int, List<int>> dictMLTs, string tipoArquivo)
         {   
             // Para arquivo binário. 
             if (tipoArquivo=="binario")
@@ -112,13 +155,20 @@ namespace csVazEdit
         ///     Dicionário com número dos postos e objetos 'postoVazao'.
         ///
         /// </sumary>
-        public static Dictionary<int, Program.postoVazao> lePostos(string nomeArquivo)
+        public static Dictionary<int, Program.postoVazao> loadBinPostos(string nomeArquivo, int numPostos)
         {
             // Inicializa contador de postos.
             int posto = 1;
 
-            // Cria variável de saída.
-            Dictionary<int,Program.postoVazao> tmpDict = new Dictionary<int, Program.postoVazao>();
+            // Cria variável de saída e inicializa postos.
+            Dictionary<int,Program.postoVazao> tmpDict = new Dictionary<int, Program.postoVazao>();            
+            for(int p = 1; p <= numPostos; p++)
+            {
+                tmpDict[p] = new Program.postoVazao();
+                tmpDict[p].nome = "            ";
+                tmpDict[p].anoInicial = 0;
+                tmpDict[p].anoFinal = 0;             
+            }               
             
             // Abre arquivo e lê os dados.
             using (BinaryReader reader = new BinaryReader(File.Open(nomeArquivo,FileMode.Open)))
@@ -135,13 +185,58 @@ namespace csVazEdit
                     // Lê o ano incial e o ano final.
                     tmpPostoVazao.anoInicial = reader.ReadInt32();                    
                     tmpPostoVazao.anoFinal = reader.ReadInt32();
-
                     tmpDict[posto] = tmpPostoVazao;
                     posto++;
                 }
             }
             return tmpDict;
         }
+
+        /// <sumary>
+        ///
+        /// Lê um arquivo texto com a lista de postos utilizadas nos modelos computacionais do ONS.
+        ///
+        /// Argumento:
+        ///     nomeArquivo - caminho completo para o arquivo texto de postos.
+        ///
+        /// Retorno:
+        ///     Dicionário com número dos postos e objetos 'postoVazao'.
+        ///
+        /// </sumary>
+        public static Dictionary<int, Program.postoVazao> loadTxtPostos(string nomeArquivo, int numPostos)
+        {
+            // Declara a variável de saída e inicializa postos.
+            Dictionary<int, Program.postoVazao> tmpDict = new Dictionary<int, Program.postoVazao>();
+            for(int p = 1; p <= numPostos; p++)
+            {
+                tmpDict[p] = new Program.postoVazao();
+                tmpDict[p].nome = "            ";
+                tmpDict[p].anoInicial = 0;
+                tmpDict[p].anoFinal = 0;             
+            }                        
+                        
+            // Lê os dados do arquivo. Usando codificação 'UTF8' pois existe o posto 'ALTO TIETÊ'.
+            string [] data = File.ReadAllLines(nomeArquivo, Encoding.UTF8);
+
+            // Número de postos.
+            int numPostosArquivo = data.Length;
+                  
+            // Loop para o número de registros do arquivo.
+            for(int s = 0; s < numPostosArquivo; s++)
+            {                      
+                // Seleciona cada linha do arquivo.
+                string ds = data[s];
+
+                // Aloca valores.
+                int posto = Convert.ToInt32(ds.Substring(0,4));                
+                tmpDict[posto] = new Program.postoVazao();
+                tmpDict[posto].nome = ds.Substring(6,12);                
+                tmpDict[posto].anoInicial = Convert.ToInt32(ds.Substring(20,4));
+                tmpDict[posto].anoFinal = Convert.ToInt32(ds.Substring(26,4));
+            }            
+            return tmpDict;
+        }
+
 
         /// <sumary>
         ///
@@ -160,7 +255,7 @@ namespace csVazEdit
         ///     Nenhum.
         ///
         /// </sumary>
-        public static void salvaPostos(string nomeArquivo, Dictionary<int, Program.postoVazao> dictPostos, string tipoArquivo)
+        public static void savePostos(string nomeArquivo, Dictionary<int, Program.postoVazao> dictPostos, string tipoArquivo)
         {    
             // Para arquivo tipo binário.
             if (tipoArquivo=="binario")
@@ -170,13 +265,13 @@ namespace csVazEdit
                     foreach(int posto in dictPostos.Keys)
                     {   
                         string nome = dictPostos[posto].nome.Trim().PadRight(12,' ');
-                        byte[] unicodeBytes = Encoding.Unicode.GetBytes(nome);
-                        byte[] latin = Encoding.Convert(Encoding.Unicode, Encoding.Latin1, unicodeBytes);
+                        byte[] unicodeBytes = Encoding.UTF8.GetBytes(nome);
+                        byte[] latin = Encoding.Convert(Encoding.UTF8, Encoding.Latin1, unicodeBytes);                        
                         writer.Write(latin);
                         writer.Write(dictPostos[posto].anoInicial);
                         writer.Write(dictPostos[posto].anoFinal);                       
-                    }                
-                }
+                    }                                
+                }               
             }
             // Para formato texto 'vazEdit'.
             else if (tipoArquivo=="vazEdit")
@@ -192,11 +287,11 @@ namespace csVazEdit
                             string saida = posto.ToString().PadLeft(4) + "  " + nome.PadRight(12) +
                                            dictPostos[posto].anoInicial.ToString().PadLeft(6) +
                                            dictPostos[posto].anoFinal.ToString().PadLeft(6);                           
+                            
                             writer.WriteLine(saida);
                         }
                     }
                 }
-
             }
             else
             {
@@ -220,7 +315,7 @@ namespace csVazEdit
         ///     Objeto tipo 'historicoVazoes' com os dados lidos do arquivo.
         ///
         /// </sumary>    
-        public static Program.historicoVazoes leVazoesTxt(string nomeArquivo)
+        public static Program.historicoVazoes loadTxtVazoes(string nomeArquivo)
         {
             // Objeto que receberá os dados.
             Program.historicoVazoes localHist = new Program.historicoVazoes();
@@ -258,11 +353,8 @@ namespace csVazEdit
                 List<int> listaValores = new List<int>();
 
                 // Adiciona os doze valores do ano 'iAno" na lista de valores.
-                for (int m = 0; m <12; m++)
-                {
-                    listaValores.Add(Convert.ToInt32(s.Substring(6*m + 8, 6)));
-                } 
-
+                for (int m = 0; m <12; m++) listaValores.Add(Convert.ToInt32(s.Substring(6*m + 8, 6)));
+                
                 // Caso ainda o posto ainda não tenha sido inserido no dicionário, cria lista vazia.
                 if (!localHist.valores.ContainsKey(iPosto)) localHist.valores[iPosto]=new List<int>(); 
                 
@@ -296,7 +388,7 @@ namespace csVazEdit
         ///     Objeto tipo 'historicoVazoes' com os dados lidos do arquivo.
         ///
         /// </sumary>        
-        public static Program.historicoVazoes leVazoesBin(string nomeArquivo, int anoInicial=1931, int numPostos = 320)
+        public static Program.historicoVazoes loadBinVazoes(string nomeArquivo, int anoInicial=1931, int numPostos = 320)
         {
             // Cria uma instância de um objeto 'historicoVazoes' para conter os valores de vazões lidas.
             Program.historicoVazoes histLocal = new Program.historicoVazoes();            
@@ -316,7 +408,6 @@ namespace csVazEdit
                     histLocal.valores[p+1].Add(BitConverter.ToInt32(new ArraySegment<byte>(data,(p*4)+r, 4)));
                 }
             }
-
             // Calcula e aloca o ano final no objeto 'historicoVazoes'.
             histLocal.anoFinal = histLocal.anoInicial + (data.Length/(48*numPostos))-1;                       
             return histLocal;
@@ -339,7 +430,7 @@ namespace csVazEdit
         ///     Nenhum.       
         ///
         /// </sumary>
-        public static void salvaVazoes(Program.historicoVazoes vazoesHist, string nomeArquivo, string tipoArquivo="binario")
+        public static void saveVazoes(Program.historicoVazoes vazoesHist, string nomeArquivo, string tipoArquivo="binario")
         {
             // Armazena o número de registros para o primeiro posto. 
             // Para arquivos válidos, o número de registros é igual para todos os postos.
@@ -404,9 +495,43 @@ namespace csVazEdit
             else 
             {
                 Console.Write("Tipo de arquivo inválido!");
-                return;
-                
+                return;                
             }
+        }
+
+        /// <sumary>
+        ///
+        /// Verifica a existência de um arquivo.
+        ///
+        /// Argumentos:
+        ///     nomeArquivo - caminho completo do arquivo cuja existência se deseja verificar.
+        ///
+        /// Retorno:
+        ///     True, caso o arquivo exista. False, caso contrário.
+        ///
+        /// </sumary>
+        public static bool fileExist(string nomeArquivo)
+        {
+            if (File.Exists(nomeArquivo)) { return true; } else { return false; }
+        }
+
+        
+        /// <sumary>
+        ///
+        /// Retorno o número de postos de um arquivo.
+        ///
+        /// Argumentos:
+        ///     nomeArquivo - caminho completo do arquivo cuja existência se deseja verificar.
+        ///
+        /// Retorno:
+        ///     Número de postos.
+        ///
+        /// </sumary>
+        public static int detectPostos(string nomeArquivo)
+        {
+            int postos = 320;
+            long fileSize = new FileInfo(nomeArquivo).Length;
+            return postos;
         }
 
     }
