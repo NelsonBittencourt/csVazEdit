@@ -1,5 +1,8 @@
 # csVazEdit versão 0.003
-Código em C# para ler e escrever arquivos binários de vazão utilizados nos modelos Newave, Decomp, Gevazp e Dessem.
+
+O csVazEdit é um aplicativo para converter arquivos binários de vazões, postos e MLTs em formato texto e vice-versa. Além de reproduzir as funções do aplicativo original 'VazEdit' do ONS, o csVazEdit também poderá estendê-las.
+
+Os arquivos de vazões, MLTs e postos são utilizados pelo ONS e CCEE nos modelos Newave, Decomp, Gevazp e Dessem.
 
 
 <img src="pictures/csVazEdit_ScreenShot.png" width="700">
