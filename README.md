@@ -105,7 +105,7 @@ fileOps.savePostos(<caminho do arquivo de saída>, meusPostos, "vazEdit");  // f
 csVazEdit vazoes -paraTexto <caminho do arquivo binário de entrada> <caminho do arquivo texto de saída> [-ai <ano inicial>] [-np <número de postos>] 
 
 ```
--ai <ano incial> - argumento opcional para especificar o primeiro ano do histórico do arquivo binário. Utilize este parâmetro caso o arquivo binário tenha um ano inicial diferente de 1931;
+-ai <ano inicial> - argumento opcional para especificar o primeiro ano do histórico do arquivo binário. Utilize este parâmetro caso o arquivo binário tenha um ano inicial diferente de 1931;
 
 -np <número de postos> - argumento opcional para especificar o número de postos do arquivo binário a ser convertido. O ONS utiliza 320 postos para o modo "operação" do sistema e 600 postos para o modo "planejamento".
  
