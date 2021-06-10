@@ -32,7 +32,7 @@ var meuHistorico = fileOps.loadBinVazoes(<caminho completo do arquivo binário>,
 #### A.2) Importando os dados de vazão de um arquivo texto (formato VazEdit):
 ```C#
 
-var meuHistorico = fileOps.loadTxtVazoes(<caminho completo do arquivo texto);
+var meuHistorico = fileOps.loadTxtVazoes(<caminho completo do arquivo texto>);
 
 ```
 
